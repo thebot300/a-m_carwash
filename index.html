@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A and M Car Washing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#06202B; --deep2:#0C3446; --spray:#2BB6D6; --wax:#F2B134; --mud:#6B4F33;
+  --bg:#F2F8F9; --ink:#0A2733; --muted:#4A6571; --line:#CFE0E5; --card:#FFFFFF;
+  --display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#071A22;--ink:#E7F3F6;--muted:#9DB8C2;--line:#1D3C49;--card:#0D2733;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#071A22;--ink:#E7F3F6;--muted:#9DB8C2;--line:#1D3C49;--card:#0D2733;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--wax);outline-offset:3px}
+.wrap{width:min(1100px,100% - 40px);margin-inline:auto;position:relative}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#F2F8F9;padding:22px 0 84px;
+  background:radial-gradient(900px 520px at 85% 0%,#1a6a85 0,transparent 62%),radial-gradient(700px 500px at 0% 100%,#0e4a5e 0,transparent 60%),var(--deep)}
+.bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bubbles i{position:absolute;bottom:-60px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.85) 0 8%,rgba(255,255,255,.12) 22%,rgba(43,182,214,.10) 70%);
+  border:1px solid rgba(255,255,255,.28);animation:rise var(--t) linear var(--d) infinite}
+@keyframes rise{to{transform:translate(var(--dx),-120vh)}}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{font:800 24px/1 var(--display);letter-spacing:-.02em;text-decoration:none}
+.logo span{color:var(--wax)}
+nav a.call{font-weight:600;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);padding:9px 16px;border-radius:999px;backdrop-filter:blur(6px)}
+nav a.call:hover{background:rgba(255,255,255,.12)}
+
+/* the wipe */
+.wipe{position:relative;margin:clamp(48px,9vw,110px) 0 0;touch-action:pan-y;user-select:none}
+h1{margin:0;display:grid;font:800 clamp(64px,16.5vw,224px)/.88 var(--display);letter-spacing:-.045em;padding:.04em 0 .1em}
+h1 .t{grid-area:1/1;display:block}
+h1 .clean{background:linear-gradient(180deg,#FFFFFF 10%,#9CEBFA 55%,#2BB6D6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(43,182,214,.55))}
+h1 .dirty{background:linear-gradient(180deg,#8B6A44 0%,#5B4126 60%,#3E2B19 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:url(#grime);clip-path:inset(0 0 0 var(--pos,0%))}
+.wipe .line{position:absolute;top:2%;bottom:2%;left:var(--pos,0%);width:4px;margin-left:-2px;border-radius:3px;background:#fff;pointer-events:none;box-shadow:0 0 22px 4px rgba(43,182,214,.85)}
+.wipe .line::after{content:"";position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;transform:translate(-50%,-50%);
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306202B' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 7l-5 5 5 5M15 7l5 5-5 5'/%3E%3C/svg%3E") center/26px no-repeat;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.wipe input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.wipe input:focus-visible~.line::after{outline:3px solid var(--wax);outline-offset:3px}
+.hint{margin:6px 0 0;color:#8FB7C4;font-size:15px}
+.lead{font:700 clamp(24px,3.6vw,38px)/1.15 var(--display);letter-spacing:-.02em;margin:30px 0 10px}
+.lead2{color:#BCD6DE;max-width:48ch;margin:0 0 30px;font-size:clamp(17px,2vw,20px)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;font:600 17px var(--body);text-decoration:none;padding:15px 28px;border-radius:999px;border:0;cursor:pointer}
+.btn.primary{background:var(--wax);color:#2a1d00;box-shadow:0 8px 28px rgba(242,177,52,.35)}
+.btn.primary:hover{background:#ffc552}
+.btn.ghost{color:#F2F8F9;border:1.5px solid rgba(255,255,255,.35)}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+
+/* sections */
+section{padding:88px 0}
+h2{font:800 clamp(34px,5.4vw,60px)/1.03 var(--display);letter-spacing:-.035em;margin:0 0 14px}
+.sub{color:var(--muted);max-width:52ch;margin:0 0 40px}
+
+/* services */
+.rows{border-top:1.5px solid var(--ink)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:background .2s}
+.row h3{font:700 clamp(24px,3.4vw,36px)/1.1 var(--display);letter-spacing:-.02em;margin:0}
+.row .price{font:800 clamp(32px,4.6vw,52px)/1 var(--display);letter-spacing:-.03em}
+.row p{grid-column:1;margin:0;color:var(--muted);max-width:60ch}
+.row.pick{background:linear-gradient(100deg,rgba(43,182,214,.16),transparent 70%),var(--card);margin-inline:-20px;padding-inline:20px;border-radius:16px;border-bottom-color:transparent;box-shadow:inset 4px 0 0 var(--wax)}
+.row .badge{display:inline-block;font:600 13px var(--body);background:var(--wax);color:#2a1d00;padding:3px 10px;border-radius:999px;margin-left:10px;vertical-align:middle}
+.addh{font:700 24px/1.1 var(--display);letter-spacing:-.02em;margin:48px 0 14px}
+.addons{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.addons li{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 18px;font-weight:500}
+
+/* book */
+.book{background:radial-gradient(800px 500px at 100% 0%,#124559 0,transparent 60%),var(--deep);color:#F2F8F9}
+.book .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.book h2{margin-bottom:20px}
+.book dl{margin:28px 0 0;display:grid;grid-template-columns:auto 1fr;gap:10px 20px}
+.book dt{color:#8DB1BD}
+.book dd{margin:0;font-weight:500;font-size:20px}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:500}
+input[type=text],input[type=tel],input[type=date],select{font:400 17px var(--body);padding:13px 14px;border-radius:10px;border:1.5px solid #2D5666;background:#0F3140;color:#F2F8F9;width:100%}
+input[type=date]{color-scheme:dark}
+input::placeholder{color:#7FA0AC}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+legend{font-weight:600;margin-bottom:10px;padding:0}
+.opt,.chip{position:relative;display:block}
+.opt input,.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 18px;border:1.5px solid #2D5666;border-radius:12px;background:#0F3140}
+.opt b{font:700 19px var(--display)}
+.opt i{font:800 22px var(--display);font-style:normal}
+.opt input:checked+span{border-color:var(--wax);background:#16404f;box-shadow:inset 0 0 0 1px var(--wax)}
+.adds{display:flex;flex-wrap:wrap;gap:10px}
+.adds legend{width:100%}
+.chip span{display:block;padding:9px 16px;border:1.5px solid #2D5666;border-radius:999px;background:#0F3140;font-weight:500}
+.chip input:checked+span{background:var(--wax);border-color:var(--wax);color:#2a1d00}
+.opt input:focus-visible+span,.chip input:focus-visible+span{outline:3px solid var(--wax);outline-offset:3px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#sum{margin:0;color:#BCD6DE}
+#sum b{color:#fff}
+#note{min-height:1.4em;color:var(--wax);margin:0;font-weight:500}
+footer{background:var(--deep);color:#8DB1BD;padding:26px 0 34px;font-size:15px;border-top:1px solid #1D3C49}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media (max-width:760px){
+  .book .grid{grid-template-columns:1fr;gap:40px}
+  section{padding:64px 0}
+  .row.pick{margin-inline:-12px;padding-inline:12px}
+}
+@media (max-width:480px){.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bubbles{display:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="grime" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="14" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="9" result="s"/>
+    <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.75" result="m"/>
+    <feComposite in="d" in2="m" operator="in"/>
+  </filter>
+</svg>
+
+<header class="hero">
+  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#top">A<span>&amp;</span>M Car Washing</a>
+      <a class="call" href="tel:+15039333114">Call (503) 933-3114</a>
+    </nav>
+
+    <div class="wipe" id="wipe">
+      <h1 id="top">
+        <span class="t clean">Dirty to clean.</span>
+        <span class="t dirty" aria-hidden="true">Dirty to clean.</span>
+      </h1>
+      <input type="range" min="0" max="100" value="100" id="slider" aria-label="Wipe the dirt away">
+      <div class="line"></div>
+    </div>
+    <p class="hint">Drag across the words to wipe.</p>
+
+    <p class="lead">That’s what we do.</p>
+    <p class="lead2">Hand washes done right, and a booking that takes under a minute.</p>
+    <div class="btns">
+      <a class="btn primary" href="#book">Book a wash</a>
+      <a class="btn ghost" href="#services">See services and prices</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="services">
+  <div class="wrap">
+    <h2>Pick your wash</h2>
+    <p class="sub">Simple prices. Every wash is done by hand, never by brushes that scratch your paint.</p>
+    <div class="rows">
+      <div class="row">
+        <h3>Exterior Wash</h3><div class="price">$25</div>
+        <p>Hand wash with wheels and tires cleaned.</p>
+      </div>
+      <div class="row pick">
+        <h3>Outside and Window Cleaning<span class="badge">Most popular</span></h3><div class="price">$35</div>
+        <p>A full outside hand wash with every window cleaned.</p>
+      </div>
+    </div>
+    <h3 class="addh">Add-ons</h3>
+    <ul class="addons"><li>Towel dry</li><li>Car tree air freshener</li><li>Tire shine</li></ul>
+    <p class="sub">Pick add-ons when you book. We will quote the price when we confirm.</p>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap grid">
+    <div>
+      <h2>Book your wash</h2>
+      <p class="sub" style="color:#BCD6DE">Tell us what you need and we will confirm a time by text.</p>
+      <dl>
+        <dt>Phone</dt><dd><a href="tel:+15039333114">(503) 933-3114</a></dd>
+      </dl>
+    </div>
+    <form id="form">
+      <fieldset>
+        <legend>Choose a wash</legend>
+        <label class="opt"><input type="radio" name="svc" value="Exterior Wash" data-price="25" checked><span><b>Exterior Wash</b><i>$25</i></span></label>
+        <label class="opt"><input type="radio" name="svc" value="Outside and Window Cleaning" data-price="35"><span><b>Outside and Window Cleaning</b><i>$35</i></span></label>
+      </fieldset>
+      <fieldset class="adds">
+        <legend>Add-ons (optional)</legend>
+        <label class="chip"><input type="checkbox" name="add" value="Towel dry"><span>Towel dry</span></label>
+        <label class="chip"><input type="checkbox" name="add" value="Car tree air freshener"><span>Car tree air freshener</span></label>
+        <label class="chip"><input type="checkbox" name="add" value="Tire shine"><span>Tire shine</span></label>
+      </fieldset>
+      <div class="two">
+        <label>Date<input type="date" id="date" required></label>
+        <label>Time of day
+          <select id="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+        </label>
+      </div>
+      <label>Car make and model<input type="text" id="car" placeholder="Honda Civic" required></label>
+      <label>Your name<input type="text" id="name" required autocomplete="name"></label>
+      <label>Phone number<input type="tel" id="tel" required autocomplete="tel"></label>
+      <p id="sum"></p>
+      <button class="btn primary" type="submit">Send booking request</button>
+      <p id="note" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 A and M Car Washing</span><span>Hand washed.</span></div></footer>
+
+<script>
+(function(){
+  var PHONE = "+15039333114";
+  var wipe = document.getElementById("wipe"), s = document.getElementById("slider");
+  function set(v){ wipe.style.setProperty("--pos", v + "%"); s.value = v; }
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ set(55); } else {
+    set(0);
+    var t0 = null, dragged = false;
+    s.addEventListener("pointerdown", function(){ dragged = true; });
+    (function sweep(ts){
+      if(dragged) return;
+      if(t0 === null) t0 = ts || performance.now();
+      var p = Math.min(((ts || performance.now()) - t0 - 500) / 2200, 1);
+      if(p > 0){ var e = 1 - Math.pow(1 - p, 3); set(Math.round(e * 100)); }
+      if(p < 1) requestAnimationFrame(sweep);
+    })();
+  }
+  s.addEventListener("input", function(){ set(s.value); });
+
+  var b = document.getElementById("bubbles");
+  if(!reduce){
+    for(var i = 0; i < 16; i++){
+      var el = document.createElement("i"), sz = 10 + Math.random() * 46;
+      el.style.setProperty("--x", (Math.random() * 100) + "%");
+      el.style.setProperty("--s", sz + "px");
+      el.style.setProperty("--dx", ((Math.random() - .5) * 120) + "px");
+      el.style.setProperty("--t", (11 + Math.random() * 12) + "s");
+      el.style.setProperty("--d", (-Math.random() * 18) + "s");
+      b.appendChild(el);
+    }
+  }
+
+  var f = document.getElementById("form"), dateEl = document.getElementById("date"), d = new Date();
+  dateEl.min = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  function sum(){
+    var p = f.querySelector("input[name=svc]:checked");
+    var n = f.querySelectorAll("input[name=add]:checked").length;
+    document.getElementById("sum").innerHTML = "Wash total: <b>$" + p.dataset.price + "</b>" + (n ? " plus " + n + (n === 1 ? " add-on" : " add-ons") + " (quoted when we confirm)" : "");
+  }
+  f.addEventListener("change", sum); sum();
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    var adds = Array.prototype.map.call(f.querySelectorAll("input[name=add]:checked"), function(a){ return a.value; });
+    var body = "Hi A and M Car Washing, I would like to book: " + f.querySelector("input[name=svc]:checked").value +
+      (adds.length ? " with " + adds.join(", ") : "") +
+      ". Date: " + dateEl.value + ", " + document.getElementById("time").value.toLowerCase() +
+      ". Car: " + document.getElementById("car").value +
+      ". Name: " + document.getElementById("name").value +
+      ". Phone: " + document.getElementById("tel").value + ".";
+    document.getElementById("note").textContent = "Opening your messages app. Press send to finish your request.";
+    window.location.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
