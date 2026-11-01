@@ -188,31 +188,33 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <dt>Phone</dt><dd><a href="tel:+15039333114">(503) 933-3114</a></dd>
       </dl>
     </div>
-    <form id="form">
-      <fieldset>
-        <legend>Choose a wash</legend>
-        <label class="opt"><input type="radio" name="svc" value="Exterior Wash" data-price="25" checked><span><b>Exterior Wash</b><i>$25</i></span></label>
-        <label class="opt"><input type="radio" name="svc" value="Outside and Window Cleaning" data-price="35"><span><b>Outside and Window Cleaning</b><i>$35</i></span></label>
-      </fieldset>
-      <fieldset class="adds">
-        <legend>Add-ons (optional)</legend>
-        <label class="chip"><input type="checkbox" name="add" value="Towel dry"><span>Towel dry</span></label>
-        <label class="chip"><input type="checkbox" name="add" value="Car tree air freshener"><span>Car tree air freshener</span></label>
-        <label class="chip"><input type="checkbox" name="add" value="Tire shine"><span>Tire shine</span></label>
-      </fieldset>
-      <div class="two">
-        <label>Date<input type="date" id="date" required></label>
-        <label>Time of day
-          <select id="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
-        </label>
-      </div>
-      <label>Car make and model<input type="text" id="car" placeholder="Honda Civic" required></label>
-      <label>Your name<input type="text" id="name" required autocomplete="name"></label>
-      <label>Phone number<input type="tel" id="tel" required autocomplete="tel"></label>
-      <p id="sum"></p>
-      <button class="btn primary" type="submit">Send booking request</button>
-      <p id="note" role="status"></p>
-    </form>
+   <form action="https://web3forms.com" method="POST" id="form">
+  <input type="hidden" name="access_key" value="51b8825a-a32d-4490-bf6f-d9e75919c026">
+  <input type="hidden" name="redirect" value="https://web3forms.com">
+  <fieldset>
+    <legend>Choose a wash</legend>
+    <label class="opt"><input type="radio" name="svc" value="Exterior Wash" data-price="25" checked><span><b>Exterior Wash</b><i>$25</i></span></label>
+    <label class="opt"><input type="radio" name="svc" value="Outside and Window Cleaning" data-price="35"><span><b>Outside and Window Cleaning</b><i>$35</i></span></label>
+  </fieldset>
+  <fieldset class="adds">
+    <legend>Add-ons (optional)</legend>
+    <label class="chip"><input type="checkbox" name="add" value="Towel dry"><span>Towel dry</span></label>
+    <label class="chip"><input type="checkbox" name="add" value="Car tree air freshener"><span>Car tree air freshener</span></label>
+    <label class="chip"><input type="checkbox" name="add" value="Tire shine"><span>Tire shine</span></label>
+  </fieldset>
+  <div class="two">
+    <label>Date<input type="date" id="date" name="Date" required></label>
+    <label>Time of day
+      <select id="time" name="Time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+    </label>
+  </div>
+  <label>Car make and model<input type="text" id="car" name="Car" placeholder="Honda Civic" required></label>
+  <label>Your name<input type="text" id="name" name="Name" required autocomplete="name"></label>
+  <label>Phone number<input type="tel" id="tel" name="Phone" required autocomplete="tel"></label>
+  <p id="sum"></p>
+  <button class="btn primary" type="submit">Send booking request</button>
+</form>
+
   </div>
 </section>
 </main>
